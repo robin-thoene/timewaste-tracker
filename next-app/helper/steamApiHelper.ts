@@ -1,7 +1,7 @@
 import { IGameTime, IPlayer, IRecentPlayerGameTimes, IRecentPlayerPlaytime, ISteamGetRecentlyPlayedGamesResponse } from '../types';
 
 // Convert the JSON to an array of players.
-const allPlayers = [] as IPlayer[];
+const allPlayers = process.env.PLAYERS_JSON ? (JSON.parse(process.env.PLAYERS_JSON) as IPlayer[]) : [];
 
 // The base URL of the steam API.
 const steamApiBaseUrl = 'https://api.steampowered.com';
