@@ -1,11 +1,10 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
-import playersJson from '../../data/players.json';
 import { getRecentPlaytime } from '../../helper/steamApiHelper';
 import { IPlayer, IRecentPlayerPlaytime } from '../../types';
 
 // Convert the JSON to an array of players.
-const allPlayers = playersJson as IPlayer[];
+const allPlayers = process.env.PLAYERS_JSON ? (JSON.parse(process.env.PLAYERS_JSON) as IPlayer[]) : [];
 
 /**
  * Endpoint to retrieve the total playtime of all players in the last two weeks.
