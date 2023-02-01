@@ -1,10 +1,7 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
-import { getRecentPlaytime } from '../../helper/steamApiHelper';
-import { IPlayer, IRecentPlayerPlaytime } from '../../types';
-
-// Convert the JSON to an array of players.
-const allPlayers = process.env.PLAYERS_JSON ? (JSON.parse(process.env.PLAYERS_JSON) as IPlayer[]) : [];
+import { getRecentPlaytime, getValidPlayers } from '../../helper/steamApiHelper';
+import { IRecentPlayerPlaytime } from '../../types';
 
 /**
  * Endpoint to retrieve the total playtime of all players in the last two weeks.
@@ -13,13 +10,15 @@ const allPlayers = process.env.PLAYERS_JSON ? (JSON.parse(process.env.PLAYERS_JS
  * @param {NextApiResponse} res The response.
  */
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-    // Get the recently played games for each player.
+    // Define const to store all promises to await them later.
     const recentPlaytimePromises: Promise<IRecentPlayerPlaytime>[] = [];
+    // Get all currently valid players.
+    const validPlayers = await getValidPlayers();
     // Store all promises in the array.
-    allPlayers.forEach((player) => recentPlaytimePromises.push(getRecentPlaytime(player.steamId)));
+    validPlayers.forEach((player) => recentPlaytimePromises.push(getRecentPlaytime(player.steamId)));
     // Wait for all promises to resolve.
     const recentPlaytimeResponses = await Promise.all(recentPlaytimePromises);
-    // Return the sum.
+    // Return the response.
     res.status(200).json(recentPlaytimeResponses);
 };
 

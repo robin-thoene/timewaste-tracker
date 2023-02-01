@@ -18,18 +18,8 @@ const Home: NextPage = () => {
 
     /** Query of the recent player playtimes. */
     const recentPlayerPlaytimes = useRecentPlayerPlaytimes();
-    /** Query of the recent game times of the first player. */
-    const firstPlayerRecentGameTimes = useRecentPlayerGameTimes('1');
-    /** Query of the recent game times of the second player. */
-    const secondPlayerRecentGameTimes = useRecentPlayerGameTimes('2');
-    /** Query of the recent game times of the third player. */
-    const thirdPlayerRecentGameTimes = useRecentPlayerGameTimes('3');
-    /** Query of the recent game times of the forth player. */
-    const forthPlayerRecentGameTimes = useRecentPlayerGameTimes('4');
-    /** Query of the recent game times of the fifth player. */
-    const fifthPlayerRecentGameTimes = useRecentPlayerGameTimes('5');
-    /** Query of the recent game times of the sixth player. */
-    const sixthPlayerRecentGameTimes = useRecentPlayerGameTimes('6');
+    /** Query of the recent game times of all players. */
+    const recentGameTimes = useRecentPlayerGameTimes();
 
     return (
         <div className="flex flex-1 flex-col overflow-auto">
@@ -43,65 +33,13 @@ const Home: NextPage = () => {
                     )}
                 </div>
             </div>
-            <div className="flex p-16">
-                <div className="flex h-screen w-full flex-col">
-                    <h2>{t('playerRecentGameTimes', { playerName: firstPlayerRecentGameTimes.data?.playerDisplayName })}</h2>
-                    {firstPlayerRecentGameTimes.isLoading ? (
-                        'loading ...'
-                    ) : (
-                        <PieChart data={firstPlayerRecentGameTimes.data?.gameTimes ?? []} dataKey="playtimeInHours" withLabels withTooltip withLegend nameKey="gameName" />
-                    )}
-                </div>
-            </div>
-            <div className="flex p-16">
-                <div className="flex h-screen w-full flex-col">
-                    <h2>{t('playerRecentGameTimes', { playerName: secondPlayerRecentGameTimes.data?.playerDisplayName })}</h2>
-                    {secondPlayerRecentGameTimes.isLoading ? (
-                        'loading ...'
-                    ) : (
-                        <PieChart data={secondPlayerRecentGameTimes.data?.gameTimes ?? []} dataKey="playtimeInHours" withLabels withTooltip withLegend nameKey="gameName" />
-                    )}
-                </div>
-            </div>
-            <div className="flex p-16">
-                <div className="flex h-screen w-full flex-col">
-                    <h2>{t('playerRecentGameTimes', { playerName: thirdPlayerRecentGameTimes.data?.playerDisplayName })}</h2>
-                    {thirdPlayerRecentGameTimes.isLoading ? (
-                        'loading ...'
-                    ) : (
-                        <PieChart data={thirdPlayerRecentGameTimes.data?.gameTimes ?? []} dataKey="playtimeInHours" withLabels withTooltip withLegend nameKey="gameName" />
-                    )}
-                </div>
-            </div>
-            <div className="flex p-16">
-                <div className="flex h-screen w-full flex-col">
-                    <h2>{t('playerRecentGameTimes', { playerName: forthPlayerRecentGameTimes.data?.playerDisplayName })}</h2>
-                    {forthPlayerRecentGameTimes.isLoading ? (
-                        'loading ...'
-                    ) : (
-                        <PieChart data={forthPlayerRecentGameTimes.data?.gameTimes ?? []} dataKey="playtimeInHours" withLabels withTooltip withLegend nameKey="gameName" />
-                    )}
-                </div>
-            </div>
-            <div className="flex p-16">
-                <div className="flex h-screen w-full flex-col">
-                    <h2>{t('playerRecentGameTimes', { playerName: fifthPlayerRecentGameTimes.data?.playerDisplayName })}</h2>
-                    {fifthPlayerRecentGameTimes.isLoading ? (
-                        'loading ...'
-                    ) : (
-                        <PieChart data={fifthPlayerRecentGameTimes.data?.gameTimes ?? []} dataKey="playtimeInHours" withLabels withTooltip withLegend nameKey="gameName" />
-                    )}
-                </div>
-            </div>
-            <div className="flex p-16">
-                <div className="flex h-screen w-full flex-col">
-                    <h2>{t('playerRecentGameTimes', { playerName: sixthPlayerRecentGameTimes.data?.playerDisplayName })}</h2>
-                    {sixthPlayerRecentGameTimes.isLoading ? (
-                        'loading ...'
-                    ) : (
-                        <PieChart data={sixthPlayerRecentGameTimes.data?.gameTimes ?? []} dataKey="playtimeInHours" withLabels withTooltip withLegend nameKey="gameName" />
-                    )}
-                </div>
+            <div className="flex flex-col">
+                {recentGameTimes.data?.map((recentPlayerGameTime, i) => (
+                    <div key={`${recentPlayerGameTime.playerDisplayName}-${i}`} className="flex h-screen w-full flex-col p-16">
+                        <h2>{t('playerRecentGameTimes', { playerName: recentPlayerGameTime.playerDisplayName })}</h2>
+                        <PieChart data={recentPlayerGameTime.gameTimes ?? []} dataKey="playtimeInHours" withLabels withTooltip withLegend nameKey="gameName" />
+                    </div>
+                ))}
             </div>
         </div>
     );
