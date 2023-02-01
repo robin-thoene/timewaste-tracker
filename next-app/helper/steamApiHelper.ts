@@ -57,4 +57,26 @@ const getRecentGamePlaytimes = async (playerId: string): Promise<IRecentPlayerGa
     return result;
 };
 
-export { getRecentGamePlaytimes, getRecentPlaytime };
+/**
+ * Get the list of all currently valid players.
+ *
+ * @returns {IPlayer[]} The list of all currently valid players.
+ */
+const getValidPlayers = async (): Promise<IPlayer[]> => {
+    const validPlayers: IPlayer[] = [];
+    const validationPromises: Promise<number | void>[] = [];
+    allPlayers.forEach((player) => {
+        const steamLevelPromise = fetch(`${steamApiBaseUrl}/${recentlyPlayedGamesUrl}/v1/?key=${steamApiKey}&steamid=${player.steamId}`)
+            .then((status) => {
+                if (status.status === 200) {
+                    validPlayers.push(player);
+                }
+            })
+            .catch((error) => console.error(error));
+        validationPromises.push(steamLevelPromise);
+    });
+    await Promise.all(validationPromises);
+    return validPlayers;
+};
+
+export { getRecentGamePlaytimes, getRecentPlaytime, getValidPlayers };
