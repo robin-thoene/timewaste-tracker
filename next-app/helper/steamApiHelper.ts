@@ -76,7 +76,7 @@ const getValidPlayers = async (): Promise<IPlayer[]> => {
         validationPromises.push(steamLevelPromise);
     });
     await Promise.all(validationPromises);
-    return validPlayers;
+    return validPlayers.sort((a, b) => (a.id > b.id ? 1 : -1));
 };
 
 export { getRecentGamePlaytimes, getRecentPlaytime, getValidPlayers };
