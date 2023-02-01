@@ -1,0 +1,15 @@
+{
+    "en": "English",
+    "de": "Deutsch",
+    "languageButtonEnAriaLabel": "Switch to English",
+    "languageButtonDeAriaLabel": "Umschalten auf Deutsch",
+    "darkModeToggleAriaLabel": "Wechseln zwischen hellem und dunklem Design",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "submitSearchAriaLabel": "Suche ausführen.",
+    "clearSearchAriaLabel": "Suche zurückzsetzen.",
+    "collapseSideNavAriaLabel": "Seitennavigation einklappen.",
+    "openSideNavAriaLabel": "Seitennavigation ausklappen.",
+    "recentPlayerPlaytimesHeadline": "Gesamte Spielzeit in Stunden in den letzten zwei Wochen",
+    "playerRecentGameTimes": "Spielzeit in den letzten zwei Wochen nach Spiel für Spieler \"{{playerName}}\""
+}
