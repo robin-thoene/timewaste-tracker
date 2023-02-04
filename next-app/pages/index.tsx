@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                             withLabels
                             withTooltip
                             nameKey="gameName"
-                            withLegend={recentPlayerGameTime.gameTimes.length <= 20}
+                            withLegend={recentPlayerGameTime.gameTimes.length <= 15 || window.innerWidth > 800}
                         />
                     </div>
                 ))}
