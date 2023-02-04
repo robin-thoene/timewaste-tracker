@@ -20,12 +20,12 @@ const PieChart: FunctionComponent<IPieChartProps> = (props): ReactElement => {
     /**
      * Callback to render the customized label.
      *
-     * @param {{ cx: number; x: number; y: number; percent: number }} props The properties of the label rendering callback.
+     * @param {{ x: number; y: number; percent: number }} props The properties of the label rendering callback.
      * @returns {ReactElement} The rendered label.
      */
-    const renderCustomizedLabel = ({ cx, x, y, percent }: { cx: number; x: number; y: number; percent: number }): ReactElement => {
+    const renderCustomizedLabel = ({ x, y, percent }: { x: number; y: number; percent: number }): ReactElement => {
         return (
-            <text x={x} y={y} fill={colors['base-content']} textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+            <text x={x} y={y} fill={colors['base-content']} dominantBaseline="central">
                 {`${(percent * 100).toFixed(0)} %`}
             </text>
         );
@@ -53,8 +53,7 @@ const PieChart: FunctionComponent<IPieChartProps> = (props): ReactElement => {
                     nameKey={props.nameKey}
                     labelLine={false}
                     innerRadius={'55%'}
-                    outerRadius={'75%'}
-                >
+                    outerRadius={'75%'}>
                     {props.data.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}

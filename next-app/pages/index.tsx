@@ -22,22 +22,30 @@ const Home: NextPage = () => {
     const recentGameTimes = useRecentPlayerGameTimes();
 
     return (
-        <div className="flex flex-1 flex-col overflow-auto">
-            <div className="flex p-16">
-                <div className="flex h-screen w-full flex-col">
+        <div className="flex flex-1 flex-col overflow-auto px-4 sm:px-16">
+            <div className="flex pt-36 sm:pt-20">
+                <div className="flex h-full min-h-screen w-full flex-col">
                     <h2>{t('recentPlayerPlaytimesHeadline')}</h2>
                     {recentPlayerPlaytimes.isLoading ? (
                         'loading ...'
                     ) : (
-                        <PieChart data={recentPlayerPlaytimes.data ?? []} dataKey="recentPlaytimeInHours" withLabels withTooltip withLegend nameKey="playerDisplayName" />
+                        <PieChart data={recentPlayerPlaytimes.data ?? []} dataKey="recentPlaytimeInHours" withLabels withTooltip nameKey="playerDisplayName" withLegend />
                     )}
                 </div>
             </div>
             <div className="flex flex-col">
                 {recentGameTimes.data?.map((recentPlayerGameTime, i) => (
-                    <div key={`${recentPlayerGameTime.playerDisplayName}-${i}`} className="flex h-screen w-full flex-col p-16">
+                    <div key={`${recentPlayerGameTime.playerDisplayName}-${i}`} className="flex h-full min-h-screen w-full flex-col items-center justify-center">
+                        <div className="my-10 w-full border" />
                         <h2>{t('playerRecentGameTimes', { playerName: recentPlayerGameTime.playerDisplayName })}</h2>
-                        <PieChart data={recentPlayerGameTime.gameTimes ?? []} dataKey="playtimeInHours" withLabels withTooltip withLegend nameKey="gameName" />
+                        <PieChart
+                            data={recentPlayerGameTime.gameTimes ?? []}
+                            dataKey="playtimeInHours"
+                            withLabels
+                            withTooltip
+                            nameKey="gameName"
+                            withLegend={recentPlayerGameTime.gameTimes.length <= 20}
+                        />
                     </div>
                 ))}
             </div>
