@@ -24,7 +24,7 @@ const getRecentPlaytime = async (playerId: string): Promise<IRecentPlayerPlaytim
     const response = await fetch(`${steamApiBaseUrl}/${recentlyPlayedGamesUrl}/v1/?key=${steamApiKey}&steamid=${playerId}`);
     const data = (await response.json()) as ISteamGetRecentlyPlayedGamesResponse;
     let playtime = 0;
-    data.response.games.forEach((game) => {
+    data.response.games?.forEach((game) => {
         playtime += game.playtime_2weeks;
     });
     const result: IRecentPlayerPlaytime = {
@@ -43,7 +43,7 @@ const getRecentPlaytime = async (playerId: string): Promise<IRecentPlayerPlaytim
 const getRecentGamePlaytimes = async (playerId: string): Promise<IRecentPlayerGameTimes> => {
     const response = await fetch(`${steamApiBaseUrl}/${recentlyPlayedGamesUrl}/v1/?key=${steamApiKey}&steamid=${playerId}`);
     const data = (await response.json()) as ISteamGetRecentlyPlayedGamesResponse;
-    const gameTimes = data.response.games.map((game) => {
+    const gameTimes = data.response.games?.map((game) => {
         const gameTime: IGameTime = {
             gameName: game.name,
             playtimeInHours: game.playtime_2weeks / 60,

@@ -34,20 +34,25 @@ const Home: NextPage = () => {
                 </div>
             </div>
             <div className="flex flex-col">
-                {recentGameTimes.data?.map((recentPlayerGameTime, i) => (
-                    <div key={`${recentPlayerGameTime.playerDisplayName}-${i}`} className="flex h-full min-h-screen w-full flex-col items-center justify-center">
-                        <div className="my-10 w-full border" />
-                        <h2>{t('playerRecentGameTimes', { playerName: recentPlayerGameTime.playerDisplayName })}</h2>
-                        <PieChart
-                            data={recentPlayerGameTime.gameTimes ?? []}
-                            dataKey="playtimeInHours"
-                            withLabels
-                            withTooltip
-                            nameKey="gameName"
-                            withLegend={recentPlayerGameTime.gameTimes.length <= 15 || window.innerWidth > 800}
-                        />
-                    </div>
-                ))}
+                {recentGameTimes.data?.map((recentPlayerGameTime, i) => {
+                    const key = `${recentPlayerGameTime.playerDisplayName}-${i}`;
+                    return recentPlayerGameTime.gameTimes ? (
+                        <div key={key} className="flex h-full min-h-screen w-full flex-col items-center justify-center">
+                            <div className="my-10 w-full border" />
+                            <h2>{t('playerRecentGameTimes', { playerName: recentPlayerGameTime.playerDisplayName })}</h2>
+                            <PieChart
+                                data={recentPlayerGameTime.gameTimes ?? []}
+                                dataKey="playtimeInHours"
+                                withLabels
+                                withTooltip
+                                nameKey="gameName"
+                                withLegend={recentPlayerGameTime.gameTimes.length <= 15 || window.innerWidth > 800}
+                            />
+                        </div>
+                    ) : (
+                        <div key={key} />
+                    );
+                })}
             </div>
         </div>
     );
