@@ -13,8 +13,8 @@ const useRecentPlayerGameTimes = () => {
             const response = await fetch(`/api/recent-player-gametimes`);
             const data = (await response.json()) as IRecentPlayerGameTimes[];
             // Round everything to hours.
-            data.forEach((recentPlayerGameTimes) => {
-                recentPlayerGameTimes.gameTimes.forEach((gameTime) => {
+            data?.forEach((recentPlayerGameTimes) => {
+                recentPlayerGameTimes.gameTimes?.forEach((gameTime) => {
                     gameTime.playtimeInHours = Math.round(gameTime.playtimeInHours);
                 });
             });
