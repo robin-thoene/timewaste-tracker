@@ -4,8 +4,7 @@
     "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended", "plugin:jsdoc/recommended", "prettier"],
     "env": { "browser": true },
     "rules": {
-        "max-len": [1, { "code": 180 }],
-        "semi": "off",
+        "semi": "error",
         "@typescript-eslint/semi": ["error"],
         "array-func/prefer-array-from": "off",
         "import/prefer-default-export": "off",

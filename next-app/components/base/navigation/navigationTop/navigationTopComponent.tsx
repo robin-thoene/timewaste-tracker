@@ -17,7 +17,7 @@ const NavigationTop: FunctionComponent<INavigationTopProps> = (props): ReactElem
     const updateGlobalSearchValue = useStoreActions((actions) => actions.ApplicationModel.updateGlobalSearchValue);
 
     return (
-        <div className="navbar fixed top-0 left-0 z-50 min-h-max bg-base-100 p-1 sm:p-3 lg:bg-transparent">
+        <div className="navbar fixed left-0 top-0 z-50 min-h-max bg-base-100 p-1 sm:p-3 lg:bg-transparent">
             <div className="grid w-full grid-cols-2">
                 <div>{props.enableGlobalSearch && <SearchBar onSearch={(newValue) => updateGlobalSearchValue(newValue)} canBeCleared />}</div>
                 <div className="flex items-center justify-end">
