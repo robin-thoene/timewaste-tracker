@@ -53,7 +53,8 @@ const PieChart: FunctionComponent<IPieChartProps> = (props): ReactElement => {
                     nameKey={props.nameKey}
                     labelLine={false}
                     innerRadius={'55%'}
-                    outerRadius={'75%'}>
+                    outerRadius={'75%'}
+                >
                     {props.data.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
