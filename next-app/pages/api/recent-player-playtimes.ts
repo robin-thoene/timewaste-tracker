@@ -5,7 +5,6 @@ import { IRecentPlayerPlaytime } from '../../types';
 
 /**
  * Endpoint to retrieve the total playtime of all players in the last two weeks.
- *
  * @param {NextApiRequest} req The request.
  * @param {NextApiResponse} res The response.
  */

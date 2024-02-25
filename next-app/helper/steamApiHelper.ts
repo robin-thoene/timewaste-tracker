@@ -16,7 +16,6 @@ if (!steamApiKey) {
 
 /**
  * Retrieve the recently playtime for a player.
- *
  * @param {string} playerId The unique identifier of the player in steam.
  * @returns {IRecentPlayerPlaytime} The recent playtime of the requested player.
  */
@@ -36,7 +35,6 @@ const getRecentPlaytime = async (playerId: string): Promise<IRecentPlayerPlaytim
 
 /**
  * Retrieve the recently played games and their playtime for a player.
- *
  * @param {string} playerId The unique identifier of the player in steam.
  * @returns {IRecentPlayerGameTimes} The recently played games and their playtime of the requested player.
  */
@@ -59,7 +57,6 @@ const getRecentGamePlaytimes = async (playerId: string): Promise<IRecentPlayerGa
 
 /**
  * Get the list of all currently valid players.
- *
  * @returns {IPlayer[]} The list of all currently valid players.
  */
 const getValidPlayers = async (): Promise<IPlayer[]> => {

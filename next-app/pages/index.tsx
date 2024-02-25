@@ -9,7 +9,6 @@ import useRecentPlayerPlaytimes from '../hooks/useRecentPlayerPlaytimes';
 
 /**
  * The page component to render at "/".
- *
  * @returns {NextPage} The home page component.
  */
 const Home: NextPage = () => {
@@ -60,6 +59,7 @@ const Home: NextPage = () => {
 
 /**
  * Server side executed method to inject properties into the component.
+ * @returns {object} The page properties.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getStaticProps: GetStaticProps = async ({ locale }: { [key: string]: any }) => {

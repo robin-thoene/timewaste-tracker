@@ -32,6 +32,7 @@ const CustomHead: FunctionComponent = (): ReactElement => {
         </Head>
     );
 };
+
 /**
  * The main entry point of the next js application.
  * @param {AppProps} param0 The properties of the app component.
