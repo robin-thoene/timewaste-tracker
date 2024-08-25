@@ -17,8 +17,9 @@ const useColorTheme = (): { [key: string]: string } => {
         colors = tailwindConfig.daisyui.themes[0].light;
     }
     // Push all custom tailwind colors as well to the colors object.
-    Object.keys(tailwindConfig.theme.extend.colors).forEach((key) => {
-        const tailwindColor = tailwindConfig.theme.extend.colors[key];
+    const tailwindThemeColors = tailwindConfig.theme.extend.colors as { [key: string]: string };
+    Object.keys(tailwindThemeColors).forEach((key) => {
+        const tailwindColor = tailwindThemeColors[key];
         if (tailwindColor) {
             colors[key] = tailwindColor;
         }
