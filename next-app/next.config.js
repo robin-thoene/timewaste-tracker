@@ -8,4 +8,5 @@ module.exports = {
     images: {
         domains: [],
     },
+    experimental: { instrumentationHook: true },
 };
