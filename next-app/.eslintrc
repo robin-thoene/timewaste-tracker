@@ -20,7 +20,10 @@
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
         "import/first": "error",
-        "import/newline-after-import": "error"
+        "import/newline-after-import": "error",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-var-requires": "off"
     },
     "settings": {
         "import/resolver": "webpack",

@@ -9,7 +9,7 @@ import { IPieChartProps } from './properties';
  * @param {IPieChartProps} props The properties of the pie chart.
  * @returns {ReactElement} The pie chart component.
  */
-const PieChart: FunctionComponent<IPieChartProps> = (props): ReactElement => {
+const PieChart: FunctionComponent<IPieChartProps> = (props: IPieChartProps): ReactElement => {
     /** Access to the current color theme. */
     const colors = useColorTheme();
 
