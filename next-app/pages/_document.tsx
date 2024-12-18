@@ -1,5 +1,5 @@
 import { Head, Html, Main, NextScript } from 'next/document';
-import React from 'react';
+import React, { JSX } from 'react';
 
 /**
  * Framework file by NextJS https://nextjs.org/docs/advanced-features/custom-document
