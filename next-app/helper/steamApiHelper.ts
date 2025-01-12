@@ -15,6 +15,17 @@ if (!steamApiKey) {
 }
 
 /**
+ * Fetch the steam API list to check if the used API key is valid and can
+ * be used to access the steam web API.
+ * @returns {Promise<boolean>} True if the key is valid, false if not.
+ */
+const checkApiKey = async (): Promise<boolean> => {
+    const url = `${steamApiBaseUrl}/ISteamWebAPIUtil/GetSupportedAPIList/v1/?key=${steamApiKey}`;
+    const response = await fetch(url);
+    return response.ok;
+};
+
+/**
  * Retrieve the recently playtime for a player.
  * @param {string} playerId The unique identifier of the player in steam.
  * @returns {IRecentPlayerPlaytime} The recent playtime of the requested player.
@@ -76,4 +87,4 @@ const getValidPlayers = async (): Promise<IPlayer[]> => {
     return validPlayers.sort((a, b) => (a.id > b.id ? 1 : -1));
 };
 
-export { getRecentGamePlaytimes, getRecentPlaytime, getValidPlayers };
+export { checkApiKey, getRecentGamePlaytimes, getRecentPlaytime, getValidPlayers };
