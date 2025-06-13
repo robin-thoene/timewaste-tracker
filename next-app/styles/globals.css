@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 html,
 body,
@@ -53,7 +51,7 @@ ol > ul {
 }
 
 .btn {
-    @apply no-animation active:opacity-70;
+    @apply active:opacity-70;
 }
 
 .btn:active:hover,
@@ -72,5 +70,5 @@ ol > ul {
 /* Recharts. */
 .recharts-tooltip-wrapper,
 .recharts-default-tooltip {
-    @apply bg-base-100 border border-base-200 rounded-md text-base-content outline-none !important;
+    @apply rounded-md outline-none;
 }
