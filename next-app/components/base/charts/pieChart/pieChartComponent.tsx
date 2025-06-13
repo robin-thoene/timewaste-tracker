@@ -1,20 +1,18 @@
-import React, { FunctionComponent, ReactElement, useMemo } from 'react';
 import { Cell, Legend, Pie, PieChart as RPieChart, ResponsiveContainer, Tooltip } from 'recharts';
-
-import useColorTheme from '../../../../hooks/useColorTheme';
 import { IPieChartProps } from './properties';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 
-/**
- * Displays data in a pie chart.
- * @param {IPieChartProps} props The properties of the pie chart.
- * @returns {ReactElement} The pie chart component.
- */
-const PieChart: FunctionComponent<IPieChartProps> = (props: IPieChartProps): ReactElement => {
-    /** Access to the current color theme. */
-    const colors = useColorTheme();
+const PieChart = (props: IPieChartProps) => {
+    const COLORS = useMemo(() => ['#0088FE', '#00C49F', '#FF8042', '#FFBB28'], []);
+    const [isDark, setIsDark] = useState(false);
 
-    /** The colors to use for the chart sections. */
-    const COLORS = useMemo(() => [colors['chart-blue'], colors['chart-green'], colors['chart-orange'], colors['chart-yellow']], [colors]);
+    useEffect(() => {
+        const match = window.matchMedia('(prefers-color-scheme: dark)');
+        setIsDark(match.matches);
+        const handler = (e: MediaQueryListEvent) => setIsDark(e.matches);
+        match.addEventListener('change', handler);
+        return () => match.removeEventListener('change', handler);
+    }, []);
 
     /**
      * Callback to render the customized label.
@@ -23,7 +21,7 @@ const PieChart: FunctionComponent<IPieChartProps> = (props: IPieChartProps): Rea
      */
     const renderCustomizedLabel = ({ x, y, percent }: { x: number; y: number; percent: number }): ReactElement => {
         return (
-            <text x={x} y={y} fill={colors['base-content']} dominantBaseline="central">
+            <text x={x} y={y} fill={isDark ? 'white' : 'black'} dominantBaseline="central">
                 {`${(percent * 100).toFixed(0)} %`}
             </text>
         );
