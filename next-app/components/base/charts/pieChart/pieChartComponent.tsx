@@ -1,6 +1,8 @@
-import { Cell, Legend, Pie, PieChart as RPieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { Cell, Legend, Pie, PieLabelRenderProps, PieChart as RPieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { IPieChartProps } from './properties';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+
+const RADIAN = Math.PI / 180;
 
 const PieChart = (props: IPieChartProps) => {
     const COLORS = useMemo(() => ['#0088FE', '#00C49F', '#FF8042', '#FFBB28'], []);
@@ -14,15 +16,19 @@ const PieChart = (props: IPieChartProps) => {
         return () => match.removeEventListener('change', handler);
     }, []);
 
-    /**
-     * Callback to render the customized label.
-     * @param {{ x: number; y: number; percent: number }} props The properties of the label rendering callback.
-     * @returns {ReactElement} The rendered label.
-     */
-    const renderCustomizedLabel = ({ x, y, percent }: { x: number; y: number; percent: number }): ReactElement => {
+    const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: PieLabelRenderProps) => {
+        // @ts-expect-error type unknown https://github.com/recharts/recharts/issues/6380
+        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+        // @ts-expect-error type unknown https://github.com/recharts/recharts/issues/6380
+        const x = cx + radius * Math.cos(-(midAngle ?? 0) * RADIAN);
+        // @ts-expect-error type unknown https://github.com/recharts/recharts/issues/6380
+        const y = cy + radius * Math.sin(-(midAngle ?? 0) * RADIAN);
+
         return (
-            <text x={x} y={y} fill={isDark ? 'white' : 'black'} dominantBaseline="central">
-                {`${(percent * 100).toFixed(0)} %`}
+            // @ts-expect-error type unknown https://github.com/recharts/recharts/issues/6380
+            <text x={x} y={y} fill={isDark ? 'white' : 'black'} textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                {/* @ts-expect-error type unknown https://github.com/recharts/recharts/issues/6380 */}
+                {`${((percent ?? 1) * 100).toFixed(0)}%`}
             </text>
         );
     };
