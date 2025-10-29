@@ -1,6 +1,10 @@
-import { Cell, Legend, Pie, PieChart as RPieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { Cell, Legend, Pie, PieLabelRenderProps, PieChart as RPieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { IPieChartProps } from './properties';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+
+interface CustomPieLabelProps extends PieLabelRenderProps {
+    percent?: number;
+}
 
 const PieChart = (props: IPieChartProps) => {
     const COLORS = useMemo(() => ['#0088FE', '#00C49F', '#FF8042', '#FFBB28'], []);
@@ -19,10 +23,10 @@ const PieChart = (props: IPieChartProps) => {
      * @param {{ x: number; y: number; percent: number }} props The properties of the label rendering callback.
      * @returns {ReactElement} The rendered label.
      */
-    const renderCustomizedLabel = ({ x, y, percent }: { x: number; y: number; percent: number }): ReactElement => {
+    const renderCustomizedLabel = (props: CustomPieLabelProps): ReactElement => {
         return (
-            <text x={x} y={y} fill={isDark ? 'white' : 'black'} dominantBaseline="central">
-                {`${(percent * 100).toFixed(0)} %`}
+            <text x={props.x} y={props.y} fill={isDark ? 'white' : 'black'} dominantBaseline="central">
+                {`${(props.percent ?? 0 * 100).toFixed(0)} %`}
             </text>
         );
     };
