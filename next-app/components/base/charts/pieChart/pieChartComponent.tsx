@@ -1,35 +1,9 @@
-import { Cell, Legend, Pie, PieLabelRenderProps, PieChart as RPieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { Cell, Legend, Pie, PieChart as RPieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { IPieChartProps } from './properties';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
-
-interface CustomPieLabelProps extends PieLabelRenderProps {
-    percent?: number;
-}
+import React, { useEffect, useMemo } from 'react';
 
 const PieChart = (props: IPieChartProps) => {
     const COLORS = useMemo(() => ['#0088FE', '#00C49F', '#FF8042', '#FFBB28'], []);
-    const [isDark, setIsDark] = useState(false);
-
-    useEffect(() => {
-        const match = window.matchMedia('(prefers-color-scheme: dark)');
-        setIsDark(match.matches);
-        const handler = (e: MediaQueryListEvent) => setIsDark(e.matches);
-        match.addEventListener('change', handler);
-        return () => match.removeEventListener('change', handler);
-    }, []);
-
-    /**
-     * Callback to render the customized label.
-     * @param {{ x: number; y: number; percent: number }} props The properties of the label rendering callback.
-     * @returns {ReactElement} The rendered label.
-     */
-    const renderCustomizedLabel = (props: CustomPieLabelProps): ReactElement => {
-        return (
-            <text x={props.x} y={props.y} fill={isDark ? 'white' : 'black'} dominantBaseline="central">
-                {`${(props.percent ?? 0 * 100).toFixed(0)} %`}
-            </text>
-        );
-    };
 
     return (
         <ResponsiveContainer width="100%" height="100%">
@@ -46,15 +20,7 @@ const PieChart = (props: IPieChartProps) => {
                     />
                 )}
                 {props.withLegend && <Legend />}
-                <Pie
-                    data={props.data}
-                    dataKey={props.dataKey}
-                    label={props.withLabels ? renderCustomizedLabel : undefined}
-                    nameKey={props.nameKey}
-                    labelLine={false}
-                    innerRadius={'55%'}
-                    outerRadius={'75%'}
-                >
+                <Pie data={props.data} dataKey={props.dataKey} nameKey={props.nameKey} innerRadius={'55%'} outerRadius={'75%'}>
                     {props.data.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
