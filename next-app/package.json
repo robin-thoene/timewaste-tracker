@@ -29,7 +29,7 @@
     "date-fns": "^4.1.0",
     "easy-peasy": "^6.1.0",
     "i18next": "^25.2.1",
-    "next": "15.3.3",
+    "next": "15.4.7",
     "next-i18next": "^15.4.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -60,5 +60,8 @@
     "tailwindcss": "^4.1.10",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.34.0"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
