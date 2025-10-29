@@ -2,6 +2,8 @@ import { Cell, Legend, Pie, PieLabelRenderProps, PieChart as RPieChart, Responsi
 import { IPieChartProps } from './properties';
 import React, { useEffect, useMemo, useState } from 'react';
 
+const RADIAN = Math.PI / 180;
+
 const PieChart = (props: IPieChartProps) => {
     const COLORS = useMemo(() => ['#0088FE', '#00C49F', '#FF8042', '#FFBB28'], []);
     const [isDark, setIsDark] = useState(false);
